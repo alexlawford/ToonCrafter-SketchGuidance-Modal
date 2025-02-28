@@ -12,7 +12,6 @@ from einops import rearrange
 from cldm.model import load_state_dict
 import cv2
 
-
 def extract_frames(video_path):
     # 動画ファイルを読み込む
     cap = cv2.VideoCapture(video_path)
@@ -52,7 +51,7 @@ class Image2Video():
         model_config['params']['unet_config']['params']['use_checkpoint']=False  
 
         #ControlModel
-        cn_ckpt_path = "control_models/sketch_encoder.ckpt"
+        cn_ckpt_path = "/control_models/sketch_encoder.ckpt"
         cn_config_file = 'configs/cldm_v21.yaml'
         cn_config = OmegaConf.load(cn_config_file)
         cn_model_config = cn_config.pop("control_stage_config", OmegaConf.create())
@@ -79,6 +78,7 @@ class Image2Video():
 
     def get_image(self, image, prompt, steps=50, cfg_scale=7.5, eta=1.0, fs=3, seed=123, image2=None, frame_guides=None,control_scale=0.6):
         control_frames = extract_frames(frame_guides)
+        
         seed_everything(seed)
         transform = transforms.Compose([
             transforms.Resize(min(self.resolution)),
