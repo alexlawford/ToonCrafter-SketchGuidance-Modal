@@ -149,10 +149,6 @@ def main():
     image2_bytes = Path("assets/sketch_sample/frame_2.png").read_bytes()
     frame_guides_bytes = Path("assets/sketch_sample/sample.mov").read_bytes()
 
-    # check if on volume?
-    # with data_volume.batch_upload() as batch:
-    #     batch.put_file("assets/sketch_sample/sample.mov", frame_guides_path)
-
     inference.remote(
         image1_bytes=image1_bytes,
         image2_bytes=image2_bytes,
